@@ -37,6 +37,11 @@ DELETE http://localhost:3000/api/v1/appointments/:id
 POST http://localhost:3000/api/v1/appointments
 ```
 
+## Swagger Documentation
+```
+http://localhost:3000/api/v1/
+```
+
 ## Stay in touch
 
 - Author - SafeHelp! Startup
