@@ -5,17 +5,20 @@ import { ApiController, BASE_API_PATH } from "../../../shared/interface/rest/api
 import { AppointmentApplicationService } from "../../application/services/appointment-application.service";
 import { ReserveAppointmentRequest } from "../../application/dtos/request/reserve-appointment-request.dto";
 import { AppNotification } from "../../../shared/application/app.notification";
-import { Appointment } from "../../domain/agregates/appointment/appointment.root.entity";
 import { AppointmentDto } from "../../application/dtos/response/appointment.dto";
 import { AppointmentMapper } from "../../application/mappers/appointment.mapper";
 import { DeclineAppointmentRequest } from "../../application/dtos/request/decline-appointment-request.dto";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 @Controller(BASE_API_PATH + 'appointments')
+@ApiTags('Appointments')
 export class AppointmentController {
   constructor(private readonly appointmentApplicationService: AppointmentApplicationService, private readonly queryBus: QueryBus) {}
 
+  @ApiOperation({ summary: 'Reserve appointment' })
   @Post('')
   async reserve(
+
     @Body() reserveAppointmentRequest: ReserveAppointmentRequest,
     @Res({ passthrough: true }) response
   ) {
@@ -30,6 +33,8 @@ export class AppointmentController {
     }
   }
 
+
+  @ApiOperation({ summary: 'Decline appointment' })
   @Delete('/:id')
   async decline(@Param('id') id: number, @Res({ passthrough: true }) response) {
     try {
@@ -43,6 +48,7 @@ export class AppointmentController {
     }
   }
 
+  @ApiOperation({ summary: 'Consult appointment' })
   @Get('/:id')
   async getById(@Param('id') id: number, @Res({ passthrough: true }) response): Promise<object> {
     try {
@@ -53,6 +59,7 @@ export class AppointmentController {
     }
   }
 
+  @ApiOperation({ summary: 'Consult all appointments' })
   @Get('')
   async getAll(@Res({ passthrough: true }) response) {
     try {
